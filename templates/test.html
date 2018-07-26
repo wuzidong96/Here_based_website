@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+
+<h2>为 JSON 字符串创建对象</h2>
+<p id="demo"></p>
+<script>
+var x = "1234";
+var route_fast = '{"coordinates" : [' +
+'[38.903500, -77.019500],'+
+'[38.892000, -77.021500],'+
+'[38.892000, -77.031600],'+
+'[38.893500, -77.053400],'+
+'[38.891800, -77.064800],'+
+'[38.891800, -77.065100],'+
+'[38.890500, -77.067400],'+
+'[38.892100, -77.071500],'+
+'[38.889700, -77.078000],'+
+'[38.886500, -77.083300],'+
+'[38.884700, -77.084700],'+
+'[38.881200, -77.084200],'+
+'[38.875400, -77.083800]]}';
+var route_fast2 = '{"coordinates" : [' +
+'1,2,3]}';
+var obj = JSON.parse(route_fast);
+  
+// document.getElementById("demo").innerHTML = x;
+document.getElementById("demo").innerHTML = obj.coordinates[0][0].toString() + " " + obj.coordinates[1][1].toString();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
