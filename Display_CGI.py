@@ -117,7 +117,7 @@ def put():
 #     print 'end', time.time()
 #     return result
 
-#lastest edition
+#list version
 @app.route('/route',methods=['GET','POST'])
 def route():
     source_lng = -float(request.form['source_lng1'])
@@ -177,36 +177,31 @@ def route():
     lng_fast = []
     for line in file_fastest:
         temp=str(line.strip()).split(':')
-        print(temp[1][0:9])
         lat_fast.append(float(temp[1][0:9]))
         lng_fast.append(float(temp[2][0:9]))
-        # temp2=(float(temp[1][0:9]),float(temp[2][0:9]))
-        # latlng.append(temp2)
-    # route1=jsonify({'coordinates':latlng})
     
     
-    latlng=[]
-    steps=[]
+    lat_short=[]
+    lng_short=[]
     for line in file_shortest:
         temp=str(line.strip()).split(':')
-        temp2=(float(temp[1][0:9]),float(temp[2][0:9]))
-        latlng.append(temp2)
-    route2={'coord':latlng}
+        lat_short.append(float(temp[1][0:9]))
+        lng_short.append(float(temp[2][0:9]))
 
-    latlng=[]
-    steps=[]
+    lat_optimal=[]
+    lng_optimal=[]
     for line in file_optimal:
         temp=str(line.strip()).split(':')
-        temp2=(float(temp[1][0:9]),float(temp[2][0:9]))
-        latlng.append(temp2)
-    route3={'coord':latlng}
+        lat_optimal.append(float(temp[1][0:9]))
+        lng_optimal.append(float(temp[2][0:9]))
 
-    waypoint1={'location':[source_lat,source_lng]}
-    waypoint2={'location':[destination_lat,destination_lng]}
+    waypoint1=[source_lat_disp,source_lng_disp]
+    waypoint2=[destination_lat_disp,destination_lng_disp]
 
     print 'CGI end', time.time()
     # return render_template('display.html',route_fast=route1,route_short=route2,route_optimal=route3)
-    return render_template('display.html',lat_fast=lat_fast,lng_fast=lng_fast)
+    return render_template('display.html',lat_fast=lat_fast,lng_fast=lng_fast,lat_short=lat_short,lng_short=lng_short,lat_optimal=lat_optimal,
+    	lng_optimal=lng_optimal,waypoint1=waypoint1,waypoint2=waypoint2)
 
 #test for return data as a list
 # @app.route('/route',methods=['GET','POST'])
@@ -253,5 +248,5 @@ def not_found(error):
 	return make_response(jsonify({'error': 'This page not found!!'}), 404)
 
 if __name__ == '__main__':
-    app.run(host='10.6.8.2',port=5000, debug=True, threaded=True)
+    app.run(host='10.7.57.7',port=5000, debug=True, threaded=True)
 	

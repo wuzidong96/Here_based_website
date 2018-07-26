@@ -14,7 +14,7 @@
 <body>
   <div id="map" style="position: absolute; width: 70%; height: 70%; background: grey"> </div>
   <div id="searchbox" style="position: absolute; width: 28%; left: 72%; height: 100%; background: inherit">
-  	<h4><center><b> Searchbox</b></center><br></h4>
+  	<h3><center><b> Searchbox</b></center><br></h3>
   	<form action="{{url_for('route')}}" method="post">
   		<div>
   			<center>
@@ -25,13 +25,13 @@
   		<div>
   			<center>
   			<label for="Lat1">Lat1:</label>
-  			<input type="text" id="lat1" name="source_lat1" value="39.7767" />
+  			<input type="text" id="lat1" name="source_lat1" value="38.9049" />
   			</center>
   		</div>
   		<div>
 			<center>
   			<label for="Lng1">Lng1:</label>
-  			<input type="text" id="lng1" name="source_lng1" value="-77.229" />
+  			<input type="text" id="lng1" name="source_lng1" value="-77.0157" />
   			</center>
   		</div>
   		<div>
@@ -81,6 +81,14 @@ function setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_
 	});
 }
 
+function setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,
+	initial_lat2,initial_lng2, initial_time1){
+	input_lat1.value = initial_lat1;
+	input_lng1.value = initial_lng1;
+	input_lat2.value = initial_lat2;
+	input_lng2.value = initial_lng2;
+	input_time1.value = initial_time1;
+}
 
 
 
@@ -119,20 +127,31 @@ var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 // Now use the map as required...
 
-//create the reference of input box
+//set initial value of input boxes
+var initial_lat1 = 38.9049;
+var initial_lng1 = -77.0157;
+var initial_lat2 = 35.8331;
+var initial_lng2 = -78.675;
+var initial_time1 = 48;
+
+
+//create the reference of input boxes
 var input_lat1 = document.getElementById('lat1');
 var input_lng1 = document.getElementById('lng1');
 var input_lat2 = document.getElementById('lat2');
 var input_lng2 = document.getElementById('lng2');
+var input_time1 = document.getElementById('time1');
 
 //create two markers
-var marker1 = new H.map.Marker({lat:39.7767,lng:-77.229});
-var marker2 = new H.map.Marker({lat:40.2573,lng:-75.7269});
+var marker1 = new H.map.Marker({lat:initial_lat1,lng: initial_lng1});
+var marker2 = new H.map.Marker({lat:initial_lat2,lng: initial_lng2});
 map.addObject(marker1);
 map.addObject(marker2);
 
 var clicknum = 0;
 setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_lng2,marker1,marker2);
+setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,initial_lat2,initial_lng2,initial_time1);
+
 
   </script>
 </body>

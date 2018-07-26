@@ -38,7 +38,7 @@
 <body>
   <div id="map" style="position: absolute; width: 70%; height: 70%; background: grey"> </div>
   <div id="searchbox" style="position: absolute; width: 28%; left: 72%; height: 100%; background: inherit">
-  	<h4><center><b> Searchbox</b></center><br></h4>
+  	<h3><center><b> Task Information</b></center><br></h3>
   	<form action="{{url_for('route')}}" method="post">
   		<div>
   			<center>
@@ -76,7 +76,21 @@
   			</center>
   		</div>
   	</form>
-  	<p id="test">It shouldnot show</p>
+  	<!-- <p id="test">It shouldnot show</p> -->
+  	<div>
+  		<h3><center>Legend of Routes: </center></h3><br>
+  		<ul>
+  			<li>
+  				<font color="red">Fastest Route</font><br>
+  			</li>
+  			<li>
+  				<font color="green">Shortest Route</font><br>
+  			</li>
+  			<li>
+  				<font color="blue">Optimal Route</font><br>
+  			</li>
+  		</ul>
+  	</div>
   </div>
   <script  type="text/javascript" charset="utf-8" >
     
@@ -107,7 +121,16 @@ function setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_
 	});
 }
 
-function addPolylineToMap(map,lat_fast,lng_fast){
+function setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,
+	initial_lat2,initial_lng2, initial_time1){
+	input_lat1.value = initial_lat1;
+	input_lng1.value = initial_lng1;
+	input_lat2.value = initial_lat2;
+	input_lng2.value = initial_lng2;
+	input_time1.value = initial_time1;
+}
+
+function addFastPolylineToMap(map,lat_fast,lng_fast){
 	var strip = new H.geo.Strip();
 	for (i in lat_fast){
 		strip.pushPoint({lat: lat_fast[i],lng: lng_fast[i]});
@@ -117,7 +140,31 @@ function addPolylineToMap(map,lat_fast,lng_fast){
   ));
 }
 
+function addShortPolylineToMap(map,lat_short,lng_short){
+	var strip = new H.geo.Strip();
+	for (i in lat_short){
+		strip.pushPoint({lat: lat_short[i],lng: lng_short[i]});
+	}
+  map.addObject(new H.map.Polyline(
+    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}}
+  ));
+}
 
+function addOptimalPolylineToMap(map,lat_optimal,lng_optimal){
+	var strip = new H.geo.Strip();
+	for (i in lat_optimal){
+		strip.pushPoint({lat: lat_optimal[i],lng: lng_optimal[i]});
+	}
+  map.addObject(new H.map.Polyline(
+    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}}
+  ));
+}
+
+function setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2){
+	marker1.setPosition({lat:waypoint1[0],lng:waypoint1[1]});
+	marker2.setPosition({lat:waypoint2[0],lng:waypoint2[1]});
+
+}
 
 
 /**
@@ -155,11 +202,19 @@ var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 // Now use the map as required...
 
+//set initial value of input boxes
+var initial_lat1 = 38.9049;
+var initial_lng1 = -77.0157;
+var initial_lat2 = 35.8331;
+var initial_lng2 = -78.675;
+var initial_time1 = 48;
+
 //create the reference of input box
 var input_lat1 = document.getElementById('lat1');
 var input_lng1 = document.getElementById('lng1');
 var input_lat2 = document.getElementById('lat2');
 var input_lng2 = document.getElementById('lng2');
+var input_time1 = document.getElementById('time1');
 
 //create two markers
 var marker1 = new H.map.Marker({lat:39.7767,lng:-77.229});
@@ -170,16 +225,27 @@ map.addObject(marker2);
 //load value
 var lat_fast={{lat_fast}};
 var lng_fast={{lng_fast}};
-var ttext = "";
+var lat_short={{lat_short}};
+var lng_short={{lng_short}};
+var lat_optimal={{lat_optimal}};
+var lng_optimal={{lng_optimal}};
+var waypoint1={{waypoint1}};
+var waypoint2={{waypoint2}};
 
-for (i in lng_fast){
-	ttext += lat_fast[i]+" "+lng_fast[i]+"<br>";
-}
-document.getElementById('test').innerHTML = ttext;
+// var ttext = "";
+// for (i in lng_fast){
+// 	ttext += lat_fast[i]+" "+lng_fast[i]+"<br>";
+// }
+// document.getElementById('test').innerHTML = ttext;
 
 var clicknum = 0;
 setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_lng2,marker1,marker2);
-addPolylineToMap(map,lat_fast,lng_fast);
+setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,initial_lat2,initial_lng2,initial_time1);
+addFastPolylineToMap(map,lat_fast,lng_fast);
+addShortPolylineToMap(map,lat_short,lng_short);
+addOptimalPolylineToMap(map,lat_optimal,lng_optimal);
+setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2);
+
 
   </script>
 </body>
