@@ -81,13 +81,21 @@
   		<h3><center>Legend of Routes: </center></h3><br>
   		<ul>
   			<li>
-  				<font color="red">Fastest Route</font><br>
+  				<font color="red">Fastest Route</font>
+  				<button onclick="map.addObject(polylineFast)">Add</button>
+  				<button onclick="map.removeObject(polylineFast)">Remove</button><br>
   			</li>
   			<li>
-  				<font color="green">Shortest Route</font><br>
+  				<font color="green">Shortest Route</font>
+  				<button onclick="map.addObject(polylineShort)">Add</button>
+  				<button onclick="map.removeObject(polylineShort)">Remove</button>
+  				<br>
   			</li>
   			<li>
-  				<font color="blue">Optimal Route</font><br>
+  				<font color="blue">Optimal Route</font>
+  				<button onclick="map.addObject(polylineOptimal)">Add</button>
+  				<button onclick="map.removeObject(polylineOptimal)">Remove</button>
+  				<br>
   			</li>
   		</ul>
   	</div>
@@ -130,34 +138,56 @@ function setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1
 	input_time1.value = initial_time1;
 }
 
-function addFastPolylineToMap(map,lat_fast,lng_fast){
+function createFastPolyline(map,lat_fast,lng_fast){
 	var strip = new H.geo.Strip();
 	for (i in lat_fast){
 		strip.pushPoint({lat: lat_fast[i],lng: lng_fast[i]});
 	}
-  map.addObject(new H.map.Polyline(
-    strip, { style: { lineWidth: 4, strokeColor: 'rgba(255, 0, 0, 1)'}}
-  ));
+	var polylineFast = new H.map.Polyline(
+		strip, { style: { lineWidth: 4, strokeColor: 'rgba(255, 0, 0, 1)'}});
+	// map.addObject(polylineFast);
+	return polylineFast;
+
+  // map.addObject(new H.map.Polyline(
+  //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(255, 0, 0, 1)'}}
+  // ));
+}
+function removeFastPolyline(map,polylineFast){
+	map.removeObject(polylineFast);
 }
 
-function addShortPolylineToMap(map,lat_short,lng_short){
+function createShortPolyline(map,lat_short,lng_short){
 	var strip = new H.geo.Strip();
 	for (i in lat_short){
 		strip.pushPoint({lat: lat_short[i],lng: lng_short[i]});
 	}
-  map.addObject(new H.map.Polyline(
-    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}}
-  ));
+	var polylineShort = new H.map.Polyline(
+		strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}});
+	// map.addObject(polylineShort);
+	return polylineShort;
+  // map.addObject(new H.map.Polyline(
+  //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}}
+  // ));
+}
+function removeShortPolyline(map,polylineShort){
+	map.removeObject(polylineShort);
 }
 
-function addOptimalPolylineToMap(map,lat_optimal,lng_optimal){
+function createOptimalPolyline(map,lat_optimal,lng_optimal){
 	var strip = new H.geo.Strip();
 	for (i in lat_optimal){
 		strip.pushPoint({lat: lat_optimal[i],lng: lng_optimal[i]});
 	}
-  map.addObject(new H.map.Polyline(
-    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}}
-  ));
+	var polylineOptimal = new H.map.Polyline(
+		strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}});
+	// map.addObject(polylineOptimal);
+	return polylineOptimal;
+  // map.addObject(new H.map.Polyline(
+  //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}}
+  // ));
+}
+function removeOptimalPolyline(map,polylineOptimal){
+	map.removeObject(polylineOptimal);
 }
 
 function setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2){
@@ -241,10 +271,15 @@ var waypoint2={{waypoint2}};
 var clicknum = 0;
 setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_lng2,marker1,marker2);
 setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,initial_lat2,initial_lng2,initial_time1);
-addFastPolylineToMap(map,lat_fast,lng_fast);
-addShortPolylineToMap(map,lat_short,lng_short);
-addOptimalPolylineToMap(map,lat_optimal,lng_optimal);
+var polylineFast = createFastPolyline(map,lat_fast,lng_fast);
+var polylineShort = createShortPolyline(map,lat_short,lng_short);
+var polylineOptimal = createOptimalPolyline(map,lat_optimal,lng_optimal);
 setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2);
+
+//add polylines
+map.addObject(polylineFast);
+map.addObject(polylineShort);
+map.addObject(polylineOptimal);
 
 
   </script>
