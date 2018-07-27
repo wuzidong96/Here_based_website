@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  <link rel="stylesheet" type="text/css"
+    href="https://js.api.here.com/v3/3.0/mapsjs-ui.css" />
+  <script type="text/javascript" charset="UTF-8"
+    src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+  <script type="text/javascript" charset="UTF-8"
+    src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+  <script type="text/javascript" charset="UTF-8"
+    src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+  <script type="text/javascript" charset="UTF-8"
+    src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+</head>
+<body>
+  <div id="map" style="position:absolute; width:100%; height:100%; background:grey" ></div>
+  <script  type="text/javascript" charset="UTF-8" >
+    
+
+/**
+ * Adds a polyline between Dublin, London, Paris and Berlin to the map
+ *
+ * @param  {H.Map} map      A HERE Map instance within the application
+ */
+function addPolylineToMap(map) {
+
+///add a line fatest path, red
+  var strip = new H.geo.Strip();
+strip.pushPoint({lat:39.235300, lng:-76.709700});
+strip.pushPoint({lat:39.220900, lng:-76.701600});
+strip.pushPoint({lat:39.218200, lng:-76.705100});
+strip.pushPoint({lat:39.188700, lng:-76.756100});
+strip.pushPoint({lat:39.183900, lng:-76.763200});
+strip.pushPoint({lat:39.171800, lng:-76.785000});
+strip.pushPoint({lat:39.144200, lng:-76.809200});
+strip.pushPoint({lat:39.138700, lng:-76.811900});
+strip.pushPoint({lat:39.018200, lng:-76.926100});
+strip.pushPoint({lat:39.001300, lng:-76.930700});
+strip.pushPoint({lat:38.953600, lng:-76.940100});
+strip.pushPoint({lat:38.935100, lng:-76.963000});
+strip.pushPoint({lat:38.924700, lng:-76.985700});
+strip.pushPoint({lat:38.903500, lng:-77.019500});
+strip.pushPoint({lat:38.892000, lng:-77.021500});
+strip.pushPoint({lat:38.892000, lng:-77.031600});
+strip.pushPoint({lat:38.893500, lng:-77.053400});
+strip.pushPoint({lat:38.891800, lng:-77.064800});
+strip.pushPoint({lat:38.891800, lng:-77.065100});
+strip.pushPoint({lat:38.893600, lng:-77.067600});
+strip.pushPoint({lat:38.898600, lng:-77.071500});
+strip.pushPoint({lat:38.896600, lng:-77.082500});
+strip.pushPoint({lat:38.896000, lng:-77.098900});
+strip.pushPoint({lat:38.897000, lng:-77.108500});
+strip.pushPoint({lat:38.899400, lng:-77.114100});
+strip.pushPoint({lat:38.898500, lng:-77.120700});
+strip.pushPoint({lat:38.897500, lng:-77.123600});
+strip.pushPoint({lat:38.887900, lng:-77.161500});
+strip.pushPoint({lat:38.882200, lng:-77.171100});
+strip.pushPoint({lat:38.879900, lng:-77.175100});
+strip.pushPoint({lat:38.875800, lng:-77.220600});
+strip.pushPoint({lat:38.867100, lng:-77.273400});
+strip.pushPoint({lat:38.864600, lng:-77.275000});
+strip.pushPoint({lat:38.858200, lng:-77.307100});
+strip.pushPoint({lat:38.852600, lng:-77.323400});
+strip.pushPoint({lat:38.845100, lng:-77.375400});
+strip.pushPoint({lat:38.838700, lng:-77.431500});
+strip.pushPoint({lat:38.837100, lng:-77.446900});
+strip.pushPoint({lat:38.818400, lng:-77.526800});
+strip.pushPoint({lat:38.799800, lng:-77.598700});
+strip.pushPoint({lat:38.782500, lng:-77.665500});
+strip.pushPoint({lat:38.766400, lng:-77.723500});
+strip.pushPoint({lat:38.727700, lng:-77.779800});
+strip.pushPoint({lat:38.723600, lng:-77.781400});
+strip.pushPoint({lat:38.686400, lng:-77.787200});
+strip.pushPoint({lat:38.643000, lng:-77.804700});
+strip.pushPoint({lat:38.620900, lng:-77.800600});
+strip.pushPoint({lat:38.558000, lng:-77.801900});
+strip.pushPoint({lat:38.526700, lng:-77.822000});
+strip.pushPoint({lat:38.489300, lng:-77.936900});
+strip.pushPoint({lat:38.450100, lng:-77.983400});
+strip.pushPoint({lat:38.445800, lng:-77.978100});
+strip.pushPoint({lat:38.405700, lng:-78.011400});
+strip.pushPoint({lat:38.360800, lng:-77.974000});
+strip.pushPoint({lat:38.266100, lng:-77.956900});
+  map.addObject(new H.map.Polyline(
+    strip, { style: { lineWidth: 4, strokeColor: 'rgba(255, 0, 0, 1)'}}
+  ));
+  
+  
+  //add the second line, shortest path, blue
+   var strip = new H.geo.Strip();
+strip.pushPoint({lat:39.235300, lng:-76.709700});
+strip.pushPoint({lat:39.220900, lng:-76.701600});
+strip.pushPoint({lat:39.218200, lng:-76.705100});
+strip.pushPoint({lat:39.188700, lng:-76.756100});
+strip.pushPoint({lat:39.183900, lng:-76.763200});
+strip.pushPoint({lat:39.171800, lng:-76.785000});
+strip.pushPoint({lat:39.144200, lng:-76.809200});
+strip.pushPoint({lat:39.138700, lng:-76.811900});
+strip.pushPoint({lat:39.018200, lng:-76.926100});
+strip.pushPoint({lat:39.001300, lng:-76.930700});
+strip.pushPoint({lat:38.953600, lng:-76.940100});
+strip.pushPoint({lat:38.935100, lng:-76.963000});
+strip.pushPoint({lat:38.924700, lng:-76.985700});
+strip.pushPoint({lat:38.903500, lng:-77.019500});
+strip.pushPoint({lat:38.892000, lng:-77.021500});
+strip.pushPoint({lat:38.892000, lng:-77.031600});
+strip.pushPoint({lat:38.893500, lng:-77.053400});
+strip.pushPoint({lat:38.891800, lng:-77.064800});
+strip.pushPoint({lat:38.891800, lng:-77.065100});
+strip.pushPoint({lat:38.893600, lng:-77.067600});
+strip.pushPoint({lat:38.898600, lng:-77.071500});
+strip.pushPoint({lat:38.896600, lng:-77.082500});
+strip.pushPoint({lat:38.896000, lng:-77.098900});
+strip.pushPoint({lat:38.897000, lng:-77.108500});
+strip.pushPoint({lat:38.899400, lng:-77.114100});
+strip.pushPoint({lat:38.898500, lng:-77.120700});
+strip.pushPoint({lat:38.897500, lng:-77.123600});
+strip.pushPoint({lat:38.887900, lng:-77.161500});
+strip.pushPoint({lat:38.882200, lng:-77.171100});
+strip.pushPoint({lat:38.879900, lng:-77.175100});
+strip.pushPoint({lat:38.875800, lng:-77.220600});
+strip.pushPoint({lat:38.867100, lng:-77.273400});
+strip.pushPoint({lat:38.864600, lng:-77.275000});
+strip.pushPoint({lat:38.858200, lng:-77.307100});
+strip.pushPoint({lat:38.852600, lng:-77.323400});
+strip.pushPoint({lat:38.845100, lng:-77.375400});
+strip.pushPoint({lat:38.838700, lng:-77.431500});
+strip.pushPoint({lat:38.837100, lng:-77.446900});
+strip.pushPoint({lat:38.818400, lng:-77.526800});
+strip.pushPoint({lat:38.799800, lng:-77.598700});
+strip.pushPoint({lat:38.782500, lng:-77.665500});
+strip.pushPoint({lat:38.766400, lng:-77.723500});
+strip.pushPoint({lat:38.727700, lng:-77.779800});
+strip.pushPoint({lat:38.723600, lng:-77.781400});
+strip.pushPoint({lat:38.686400, lng:-77.787200});
+strip.pushPoint({lat:38.643000, lng:-77.804700});
+strip.pushPoint({lat:38.620900, lng:-77.800600});
+strip.pushPoint({lat:38.558000, lng:-77.801900});
+strip.pushPoint({lat:38.526700, lng:-77.822000});
+strip.pushPoint({lat:38.489300, lng:-77.936900});
+strip.pushPoint({lat:38.450100, lng:-77.983400});
+strip.pushPoint({lat:38.445800, lng:-77.978100});
+strip.pushPoint({lat:38.405700, lng:-78.011400});
+strip.pushPoint({lat:38.360800, lng:-77.974000});
+strip.pushPoint({lat:38.266100, lng:-77.956900});
+  map.addObject(new H.map.Polyline(
+    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}}
+  ));
+  
+    //add the third line, optimal path, green (the most fuel efficient)
+   var strip = new H.geo.Strip();
+strip.pushPoint({lat:39.235300, lng:-76.709700});
+strip.pushPoint({lat:39.220900, lng:-76.701600});
+strip.pushPoint({lat:39.218200, lng:-76.705100});
+strip.pushPoint({lat:39.188700, lng:-76.756100});
+strip.pushPoint({lat:39.183900, lng:-76.763200});
+strip.pushPoint({lat:39.171800, lng:-76.785000});
+strip.pushPoint({lat:39.144200, lng:-76.809200});
+strip.pushPoint({lat:39.138700, lng:-76.811900});
+strip.pushPoint({lat:39.018200, lng:-76.926100});
+strip.pushPoint({lat:39.001300, lng:-76.930700});
+strip.pushPoint({lat:38.953600, lng:-76.940100});
+strip.pushPoint({lat:38.935100, lng:-76.963000});
+strip.pushPoint({lat:38.924700, lng:-76.985700});
+strip.pushPoint({lat:38.903500, lng:-77.019500});
+strip.pushPoint({lat:38.892000, lng:-77.021500});
+strip.pushPoint({lat:38.892000, lng:-77.031600});
+strip.pushPoint({lat:38.893500, lng:-77.053400});
+strip.pushPoint({lat:38.891800, lng:-77.064800});
+strip.pushPoint({lat:38.891800, lng:-77.065100});
+strip.pushPoint({lat:38.893600, lng:-77.067600});
+strip.pushPoint({lat:38.898600, lng:-77.071500});
+strip.pushPoint({lat:38.898800, lng:-77.076600});
+strip.pushPoint({lat:38.896600, lng:-77.082500});
+strip.pushPoint({lat:38.896000, lng:-77.098900});
+strip.pushPoint({lat:38.897000, lng:-77.108500});
+strip.pushPoint({lat:38.899400, lng:-77.114100});
+strip.pushPoint({lat:38.898500, lng:-77.120700});
+strip.pushPoint({lat:38.897500, lng:-77.123600});
+strip.pushPoint({lat:38.887900, lng:-77.161500});
+strip.pushPoint({lat:38.882200, lng:-77.171100});
+strip.pushPoint({lat:38.879900, lng:-77.175100});
+strip.pushPoint({lat:38.875800, lng:-77.220600});
+strip.pushPoint({lat:38.867100, lng:-77.273400});
+strip.pushPoint({lat:38.864600, lng:-77.275000});
+strip.pushPoint({lat:38.858200, lng:-77.307100});
+strip.pushPoint({lat:38.852600, lng:-77.323400});
+strip.pushPoint({lat:38.845100, lng:-77.375400});
+strip.pushPoint({lat:38.854400, lng:-77.388700});
+strip.pushPoint({lat:38.846500, lng:-77.432200});
+strip.pushPoint({lat:38.837100, lng:-77.446900});
+strip.pushPoint({lat:38.818400, lng:-77.526800});
+strip.pushPoint({lat:38.799800, lng:-77.598700});
+strip.pushPoint({lat:38.782500, lng:-77.665500});
+strip.pushPoint({lat:38.766400, lng:-77.723500});
+strip.pushPoint({lat:38.727700, lng:-77.779800});
+strip.pushPoint({lat:38.723600, lng:-77.781400});
+strip.pushPoint({lat:38.686400, lng:-77.787200});
+strip.pushPoint({lat:38.643000, lng:-77.804700});
+strip.pushPoint({lat:38.620900, lng:-77.800600});
+strip.pushPoint({lat:38.558000, lng:-77.801900});
+strip.pushPoint({lat:38.526700, lng:-77.822000});
+strip.pushPoint({lat:38.489300, lng:-77.936900});
+strip.pushPoint({lat:38.450100, lng:-77.983400});
+strip.pushPoint({lat:38.445800, lng:-77.978100});
+strip.pushPoint({lat:38.405700, lng:-78.011400});
+strip.pushPoint({lat:38.360800, lng:-77.974000});
+strip.pushPoint({lat:38.266100, lng:-77.956900});
+  map.addObject(new H.map.Polyline(
+    strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}}
+  ));  
+}
+
+
+
+
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+//Step 1: initialize communication with the platform
+var platform = new H.service.Platform({
+  app_id: 'DemoAppId01082013GAL',
+  app_code: 'AJKnXv84fjrb0KIHawS0Tg',
+  useCIT: true,
+  useHTTPS: true
+});
+var defaultLayers = platform.createDefaultLayers();
+
+//Step 2: initialize a map - this map is centered over US
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.normal.map,{
+  center: {lat:40, lng:-97},
+  zoom: 5
+});
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+
+// Now use the map as required...
+addPolylineToMap(map);
+  </script>
+</body>
+</html>
