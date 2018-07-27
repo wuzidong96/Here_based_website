@@ -90,6 +90,34 @@ function setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1
 	input_time1.value = initial_time1;
 }
 
+function addDraggableMarker(map,behavior,marker,input_lat,input_lng){
+	marker.draggable = true;
+
+	map.addEventListener('dragstart',function(ev){
+		var target = ev.target;
+		if(target instanceof H.map.Marker){
+			behavior.disable();
+		}
+	},false);
+
+	map.addEventListener('dragend',function(ev){
+		var target = ev.target;
+		if(target instanceof mapsjs.map.Marker){
+			behavior.enable();
+		}
+	},false);
+
+	map.addEventListener('drag',function(ev){
+		var target = ev.target;
+		var pointer = ev.currentPointer;
+		if(target instanceof mapsjs.map.Marker){
+			target.setPosition(map.screenToGeo(pointer.viewportX,pointer.viewportY));
+			input_lat.value = map.screenToGeo(pointer.viewportX,pointer.viewportY).lat.toFixed(4);
+			input_lng.value = map.screenToGeo(pointer.viewportX,pointer.viewportX).lng.toFixed(4);
+		}
+	},false);
+}
+
 
 
 /**
@@ -148,10 +176,12 @@ var marker2 = new H.map.Marker({lat:initial_lat2,lng: initial_lng2});
 map.addObject(marker1);
 map.addObject(marker2);
 
+//set the position of marker and initial value in the boxes
 var clicknum = 0;
 setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_lng2,marker1,marker2);
 setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,initial_lat2,initial_lng2,initial_time1);
-
+addDraggableMarker(map,behavior,marker1,input_lat1,input_lng1);
+addDraggableMarker(map,behavior,marker2,input_lat2,input_lng2);
 
   </script>
 </body>

@@ -117,7 +117,7 @@ def put():
 #     print 'end', time.time()
 #     return result
 
-#list version
+#array version
 @app.route('/route',methods=['GET','POST'])
 def route():
     source_lng = -float(request.form['source_lng1'])
@@ -248,5 +248,5 @@ def not_found(error):
 	return make_response(jsonify({'error': 'This page not found!!'}), 404)
 
 if __name__ == '__main__':
-    app.run(host='10.7.57.7',port=5000, debug=True, threaded=True)
+    app.run(host='10.6.60.187',port=5000, debug=True, threaded=True)
 	

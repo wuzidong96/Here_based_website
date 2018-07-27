@@ -152,9 +152,7 @@ function createFastPolyline(map,lat_fast,lng_fast){
   //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(255, 0, 0, 1)'}}
   // ));
 }
-function removeFastPolyline(map,polylineFast){
-	map.removeObject(polylineFast);
-}
+
 
 function createShortPolyline(map,lat_short,lng_short){
 	var strip = new H.geo.Strip();
@@ -169,9 +167,7 @@ function createShortPolyline(map,lat_short,lng_short){
   //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 255, 0, 1)'}}
   // ));
 }
-function removeShortPolyline(map,polylineShort){
-	map.removeObject(polylineShort);
-}
+
 
 function createOptimalPolyline(map,lat_optimal,lng_optimal){
 	var strip = new H.geo.Strip();
@@ -186,14 +182,58 @@ function createOptimalPolyline(map,lat_optimal,lng_optimal){
   //   strip, { style: { lineWidth: 4, strokeColor: 'rgba(0, 0, 255, 1)'}}
   // ));
 }
-function removeOptimalPolyline(map,polylineOptimal){
-	map.removeObject(polylineOptimal);
+function addDraggableMarker(map,behavior,marker,input_lat,input_lng){
+	marker.draggable = true;
+
+	map.addEventListener('dragstart',function(ev){
+		var target = ev.target;
+		if(target instanceof H.map.Marker){
+			behavior.disable();
+		}
+	},false);
+
+	map.addEventListener('dragend',function(ev){
+		var target = ev.target;
+		if(target instanceof mapsjs.map.Marker){
+			behavior.enable();
+		}
+	},false);
+
+	map.addEventListener('drag',function(ev){
+		var target = ev.target;
+		var pointer = ev.currentPointer;
+		if(target instanceof mapsjs.map.Marker){
+			target.setPosition(map.screenToGeo(pointer.viewportX,pointer.viewportY));
+			input_lat.value = map.screenToGeo(pointer.viewportX,pointer.viewportY).lat.toFixed(4);
+			input_lng.value = map.screenToGeo(pointer.viewportX,pointer.viewportX).lng.toFixed(4);
+		}
+	},false);
 }
+
+// function removeFastPolyline(map,polylineFast){
+// 	map.removeObject(polylineFast);
+// }
+// function removeShortPolyline(map,polylineShort){
+// 	map.removeObject(polylineShort);
+// }
+// function removeOptimalPolyline(map,polylineOptimal){
+// 	map.removeObject(polylineOptimal);
+// }
 
 function setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2){
 	marker1.setPosition({lat:waypoint1[0],lng:waypoint1[1]});
 	marker2.setPosition({lat:waypoint2[0],lng:waypoint2[1]});
 
+}
+function SetMapViewBounds(map,waypoint1,waypoint2){
+	// waypoint1 = [42.3736,-71.0751];
+	// waypoint2 = [42.3472,-71.0408];
+	var up_lat = ((waypoint1[0]>waypoint2[0])? waypoint1[0] : waypoint2[0])*1.01;
+	var down_lat = ((waypoint1[0]>waypoint2[0])? waypoint2[0] : waypoint1[0])*0.99;
+	var left_lng = ((waypoint1[1]>waypoint2[1])? waypoint2[1] : waypoint1[1])*1.01;
+	var right_lng = ((waypoint1[1]>waypoint2[1])? waypoint1[1] : waypoint2[1])*0.99;
+	var recbox = new H.geo.Rect(up_lat,left_lng,down_lat,right_lng);
+	map.setViewBounds(recbox);
 }
 
 
@@ -247,8 +287,8 @@ var input_lng2 = document.getElementById('lng2');
 var input_time1 = document.getElementById('time1');
 
 //create two markers
-var marker1 = new H.map.Marker({lat:39.7767,lng:-77.229});
-var marker2 = new H.map.Marker({lat:40.2573,lng:-75.7269});
+var marker1 = new H.map.Marker({lat:initial_lat1,lng:initial_lng1});
+var marker2 = new H.map.Marker({lat:initial_lat2,lng:initial_lng2});
 map.addObject(marker1);
 map.addObject(marker2);
 
@@ -268,9 +308,12 @@ var waypoint2={{waypoint2}};
 // }
 // document.getElementById('test').innerHTML = ttext;
 
+//set the position of marker and initial value in the boxes
 var clicknum = 0;
 setUpClickListener(map,clicknum,input_lat1,input_lng1,input_lat2,input_lng2,marker1,marker2);
 setInitialValue(input_lat1,input_lng1,input_lat2,input_lng2,input_time1,initial_lat1,initial_lng1,initial_lat2,initial_lng2,initial_time1);
+
+//create polylines and set markers
 var polylineFast = createFastPolyline(map,lat_fast,lng_fast);
 var polylineShort = createShortPolyline(map,lat_short,lng_short);
 var polylineOptimal = createOptimalPolyline(map,lat_optimal,lng_optimal);
@@ -280,6 +323,13 @@ setMarkerOfRoute(map,marker1,marker2,waypoint1,waypoint2);
 map.addObject(polylineFast);
 map.addObject(polylineShort);
 map.addObject(polylineOptimal);
+
+//adjust the view bound
+SetMapViewBounds(map,waypoint1,waypoint2);
+
+//marker draggable
+addDraggableMarker(map,behavior,marker1,input_lat1,input_lng1);
+addDraggableMarker(map,behavior,marker2,input_lat2,input_lng2);
 
 
   </script>
